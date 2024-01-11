@@ -4,10 +4,6 @@ createGrid(16);
 const resize = document.querySelector("#resize");
 resize.addEventListener("click", updateResolution)
 
-function colorPixel(event) {
-    event.target.style.backgroundColor = "black";
-}
-
 function createGrid(squaresPerSide) {
     container.replaceChildren();
     for (let i = 0; i < squaresPerSide; i++) { 
@@ -17,11 +13,22 @@ function createGrid(squaresPerSide) {
         for (let j = 0; j < squaresPerSide; j++) {
             const pixel = document.createElement('div');
             pixel.setAttribute('class', 'pixel');
-            pixel.addEventListener("mouseover", colorPixel);
+            pixel.addEventListener("mousedown", (event) => {
+                // Clicking on a pixel and moving the mouse is interpreted as a drag event, causing the not-allowed cursor to appear.
+                // The drag event is no longer produced if we preventDefault on the mousedown event.
+                event.preventDefault();
+                event.target.style.backgroundColor = "black";
+            });
+            pixel.addEventListener("mouseover", (event) => {
+                if (event.buttons === 1) {
+                    event.target.style.backgroundColor = "black";
+                }
+            });
             pixel.style.cssText = 'flex: 1';    
             row.appendChild(pixel);
         }
     }
+    
 }
 
 function updateResolution() {
