@@ -1,1 +1,2 @@
-# odin-etch-a-sketch
+# Etch-A-Sketch
+Live preview: https://tanzhiheng26.github.io/odin-etch-a-sketch/
